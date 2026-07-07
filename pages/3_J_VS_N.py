@@ -17,6 +17,7 @@ df_jp['P_Total'] = df[p_cols].sum(axis=1)
 df_jp_melted = df_jp.melt(id_vars='Country', value_vars=['J_Total', 'P_Total'], var_name='Preference', value_name='Ratio')
 fig = px.bar(df_jp_melted, x='Country', y='Ratio', color='Preference', title="전 세계 J vs P")
 st.plotly_chart(fig, use_container_width=True)
+
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -47,15 +48,15 @@ try:
     global_p_pct = (global_p / total_jp) * 100
 
     # 1) 숫자로 확실하게 딱 나눠서 한눈에 보기 (Metric)
+    # 안전하게 Streamlit 고유 내장 기능만 사용하여 에러를 방지합니다.
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown("<div style='text-align: center; background-color: #f0f7fc; padding: 20px; border-radius: 10px; border-left: 5px solid #1f77b4;'>", unsafe_html=True)
-        st.metric("📌 전 세계 J (판단형) 총 비율", f"{global_j_pct:.2f}%")
-        st.markdown("</div>", unsafe_html=True)
+        st.subheader("📌 판단형 (J)")
+        st.metric(label="전 세계 총 비율", value=f"{global_j_pct:.2f}%")
+        
     with col2:
-        st.markdown("<div style='text-align: center; background-color: #fff6ee; padding: 20px; border-radius: 10px; border-left: 5px solid #ff7f0e;'>", unsafe_html=True)
-        st.metric("📑 전 세계 P (인식형) 총 비율", f"{global_p_pct:.2f}%")
-        st.markdown("</div>", unsafe_html=True)
+        st.subheader("📑 인식형 (P)")
+        st.metric(label="전 세계 총 비율", value=f"{global_p_pct:.2f}%")
 
     st.write("---")
 
