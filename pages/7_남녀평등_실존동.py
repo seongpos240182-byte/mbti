@@ -49,13 +49,13 @@ try:
         value_name='비율(%)'
     )
     
-    # 바 차트 생성
+    # 바 차트 생성 (bgroupmode -> barmode로 수정 완료)
     fig = px.bar(
         df_melted, 
         x='행정구역(동)', 
         y='비율(%)', 
         color='성별', 
-        bgroupmode='group', # 나란히 서는 바 차트 형태
+        barmode='group', # 👈 이 부분의 오타를 올바르게 고쳤습니다.
         title=f"{selected_year}년 성비 평등 TOP 5 동의 남녀 비율 비교 (50%에 가까울수록 평등)",
         labels={'비율(%)': '인구 비율 (%)', '행정구역(동)': '행정동'},
         color_discrete_map={'남성비율': '#3498db', '여성비율': '#e74c3c'}
